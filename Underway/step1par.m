@@ -36,7 +36,8 @@ function step1par(jday)
    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
    %fn1 = [lower(CRUISE) '_*' doy ];  %needed for reading the wapfiles in the next loop below
-   fn1 = [WAP_ROOT '_*' doy ];  % needed for reading the wapfiles in the next loop below - accounts for caseb
+   fn1 = [WAP_ROOT '_*' doy  ];  % needed for reading the wapfiles in the next loop below - accounts for caseb
+
 
    % fflush(stdout);
 
@@ -59,7 +60,7 @@ function step1par(jday)
    endfor
 
    %---GRG----
-
+   
    % Initialize variables based on dh8_instruments
    for idh8 = 1:length(dh8_instruments)
        % create structures where data will be stored for all instruments		

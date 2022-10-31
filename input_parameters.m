@@ -1,4 +1,5 @@
 % This file contains all the variables that should be modified at beginning of every cruise
+
 %-----------------------------
  
 struct_levels_to_print(0);
@@ -9,52 +10,48 @@ warning("off");
 graphics_toolkit("gnuplot");
 
 %-----------------------------
-CRUISE = "AMT27";
-WAP_ROOT = lower(CRUISE); % tjor: `root" part of WAP file 
-%WAP_ROOT = strcat(lower(CRUISE),"b"); % tjor: `root" part of WAP file for <With_AC9_Without_ACS
+CRUISE = "DY151";
+WAP_ROOT = CRUISE; % tjor: `root" part of WAP file - capitals for DY151
+%WAP_ROOT = strcat(lower(CRUISE),"b"); % tjor: `root" part of WAP file
 %-----------------------------
 % Variables to be changed during cruise according to specific setups and user needs
 %
 % Dates
 
-% Set date interval to be processed (format is "yyyymmdd")
-% (this will have to be changed each time the scripts are run)
-% for AMT 2017 there was just the `default' config (same as `case with BB3').
-
-% jday=267 (20170924) is first day of cruise  % first WAP hour = 015
-% jday=305 (20171101 is final day of cruise (default config '/' ends here) % final WAP hour = 2
-% jday=304 (20171030) has incomplete data
-% jday=306 does not have MRG files (although some are present)
+% jday=141 (20220521) is first day of cruise
+% jday=174 (20220623) is final day of cruise 
 
 % Set subdirectories, ini/end dates and WAPhours.
 
 % Step 1: `default' run 1 `  - 
-%UWAY_WAP_SUBDIR = "/"; % Leave with simple / if no special case
-%inidate = "20170924"; % jday=267 or 20170923 is first day of cruise  % first WAP hour = 015, final WAP hour = 002.
-%enddate = "20171101"; % jday=305 or 20171101 is final day of cruise (default config '/' ends here) % final WAP hour = 
-%WAPhour = "015"; % tjor: `processes all days with 0XXth hour of data present" 
+UWAY_WAP_SUBDIR = "/"; % Leave with simple '/' if no special case
+#UWAY_WAP_SUBDIR = "with_ACS16"
+#UWAY_WAP_SUBDIR = "dark_counts_BB3/"
 
-% Step 1: `default' run 2
-%UWAY_WAP_SUBDIR = "/"; % Leave with simple / if no special case 
-%inidate = "20170924"; %  % handles missing WAP hours at start of cruise
-%enddate = "20170926"; % 
-%WAPhour = "020"; % tjor: `processes all days with 0XXth hour of data present" 
+inidate = "20220522"; % jday=141 first day of default config. 1st WAP hour = 16
+enddate = "20220623"; % jday=174 last day of default config.  last WAP hour = 16
+WAPhour = "016"; % tjor: `processes all days with 0XXth hour of data present" - should work for all days
 
-% Step 1: `default' run 3
-%UWAY_WAP_SUBDIR = "/"; % 
-%inidate = "20171101"; % handles missing WAP hours at end of cruise
-%WAPhour = "012"; % tjor: `processes all days with 0XXth hour of data present" 
 
-% Step 1: run with BB3
-%UWAY_WAP_SUBDIR = "with_BB3/"; 
-%inidate = "20170926"; % jday=269  % WAP hours 006 - 009 need processing for case "with_BB3/"
-%enddate = "20170926"; % jday=269  % used as buffer
-%WAPhour = "006"; % tjor: `processes all days with 0XXth hour of data present" 
+% Step 1: `with_ACS167' run 1 `  - 
+UWAY_WAP_SUBDIR = "with_ACS167/"; 
+inidate = "20220521";
+enddate = "20220523"; 
+WAPhour = "005"; 
+
+% Step 1: `with_ACS167' run 2 `  - 
+UWAY_WAP_SUBDIR = "with_ACS167/"; % Leave with simple / if no special case
+inidate = "20220521";
+enddate = "20220523"; 
+WAPhour = "020"; 
+
+# Note: for future processing with BB3, jdays are 153, 158, 164.
+
 
 % Step 2:  
-UWAY_WAP_SUBDIR = "/"; % this is not used
-inidate = "20170924"; % jday=267 or 20170923 is first day of cruise  % first WAP hour = 015, final WAP hour = 002.
-enddate = "20171101"; % jday=304 or 20171102 is final day of cruise (default config '/' ends here) % final WAP hour = 
+UWAY_WAP_SUBDIR = "/"; 
+inidate = "20220521"; % jday=141
+enddate = "20220623"; % jday=174
 
 
 % Parameters specific for Underway plotting/processing
@@ -62,32 +59,36 @@ enddate = "20171101"; % jday=304 or 20171102 is final day of cruise (default con
 % Setup to automatically change based on UWAY_WAP_SUBDIR
 %
 % Implemented instruments to selct from are 
-% {"ctd","acs","bb3","cstar","acs2","ac9","clam"}  % NOTE: AC9 not used in AMT27
-if strcmp (UWAY_WAP_SUBDIR, "With_AC9_Without_ACS/") == 1 % tjor: no special case in AMT27
-    %   dh8_instruments = {"ac9", "bb3", "cstar", "ctd"};
+% {"ctd","acs","bb3","cstar","acs2","ac9","clam"}  % NOTE: AC9 not used in DY151 - ACS167 was only used in reference interval
+if strcmp (UWAY_WAP_SUBDIR, "with_ACS167") == 1 % # case with 2 acs instruments - from start of cruise
+     # dh8_instruments = {"bb3", "ctd", "acs", "acs_167"};  - full instrument list
+      dh8_instruments = {"bb3", "ctd", "acs"}; # - neglecting 167, as it was not used for rest of cruise
+     % Ports must corresponds to same ports as in dh8_instruments
+     # dh8_ports = {1,2,5,7}; - full port list
+      dh8_ports = {1,2,5};  # - neglecting 167, as it was not used for rest of cruise
+     % Serial numbers are mainly needed for acs and ac9 config files, leave blank for other instruments
+     # dh8_serialnumber = {1173, [], 122, 167};
+     dh8_serialnumber = {1173, [], 122};
+elseif strcmp(UWAY_WAP_SUBDIR, "dark_counts_BB3/") == 1 % 
+     dh8_instruments = {"bb3", "ctd", "acs"};
     % Ports must corresponds to same ports as in dh8_instruments
-    % dh8_ports = {1,2,6,7}; 
+     dh8_ports = {1,2,5}; 
     % Serial numbers are mainly needed for acs and ac9 config files, leave blank for other instruments
-    %  dh8_serialnumber = {227, 1173, 1426,[]};
-elseif strcmp(UWAY_WAP_SUBDIR, "with_BB3/") == 1 % 
-    dh8_instruments = {"bb3", "ctd", "cstar", "acs"};
-    % Ports must corresponds to same ports as in dh8_instruments
-    dh8_ports = {1,2,6,7}; 
-    % Serial numbers are mainly needed for acs and ac9 config files, leave blank for other instruments
-    dh8_serialnumber = {1173, [],1426, 122};
+     dh8_serialnumber = {1173, [], 122}; 
 elseif strcmp(UWAY_WAP_SUBDIR, "/") == 1 % tjor: this is the `default" config (i.e. without subdirectories inside WAP_extracted)
-    dh8_instruments = {"bb3", "ctd", "cstar", "acs"};
+     dh8_instruments = {"bb3", "ctd", "acs"};
     % Ports must corresponds to same ports as in dh8_instruments
-    dh8_ports = {1,2,6,7}; 
+     dh8_ports = {1,2,5}; 
     % Serial numbers are mainly needed for acs and ac9 config files, leave blank for other instruments
-    dh8_serialnumber = {1173, [],1426, 122}; 
+     dh8_serialnumber = {1173, [], 122}; 
 endif
 %-----------------------------
 
 %-----------------------------
 % Paths
 # MAIN_PATH = "/users/rsg/tjor/scratch_network/AMT_underway/AMT27/";
-MAIN_PATH = "/data/abitibi1/scratch/scratch_disk/tjor/AMT_underway/AMT27/"; disp("\n\n-----------THIS IS FOR TOM----------\n\n"); fflush(stdout);
+MAIN_PATH = "/data/datasets/cruise_data/active/DY151/"; 
+ fflush(stdout);
 % MAIN_PATH = [MAIN_PATH, "/Data/", CRUISE,"/"];     % Root directory for current AMT cruise
 PATH_DATA = [MAIN_PATH, "Data/"];        % Directory with all raw and wapped data
 PATH_SOURCE = [MAIN_PATH, "Source/"];% Directory with all source code
@@ -98,16 +99,14 @@ addpath([PATH_SOURCE]);
 %-----------------------------
 % Each directory will contain a series of subdirectories for each instrument
 % (e.g. Underway, Optics_rig, BB3_ctd etc. etc.)
-OPTIC_DIR = "Optics_rig/";
+# OPTIC_DIR = "Optics_rig/"; - not taken on DY151
 UWAY_DIR = "Underway/";
-BB3_DIR = "BB3_ctd/";
-CTD_DIR = "Ship_CTD/";
-% Specific data subdirectories
-DATA_WAPPED = "WAP_extracted/";
-DATA_RAW = "Raw/";
+# BB3_DIR = "BB3_ctd/"; - not present for DY151
+# CTD_DIR = "Ship_CTD/"; - not present for DY151
+% Specific data subdirectories with Underway
+DATA_WAPPED = "WAP_Extracted/";
+DATA_RAW = "Raw_underway/";
 DATA_FLOW = "Flow/";
-DATA_WITH_BB3 = "with_BB3/";
-
 
 %-----------------------------
 % calibration file dir
@@ -115,7 +114,7 @@ D_CAL_FILES = [PATH_DATA, UWAY_DIR, "Calibration_files/"];
 
 %-----------------------------
 % ACS calibration file
-ACS_CAL_FILE_NAME = "acs122.dev"; % tjor -find file name by looking in Calibration_files directory - tjor: 30/08/20202 - can confirm this was used on AMT27 aswell as AMT28!
+ACS_CAL_FILE_NAME = "acs122.dev"; % tjor -  2019 was latest callibration. For now, don't consider ACS167
 %-----------------------------
 
 
