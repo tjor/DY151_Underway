@@ -20,39 +20,45 @@ WAP_ROOT = CRUISE; % tjor: `root" part of WAP file - capitals for DY151
 % jday=141 (20220521) is first day of cruise
 % jday=174 (20220623) is final day of cruise 
 
-% Set subdirectories, ini/end dates and WAPhours.
+% Set subdirectories, ini/end dates and WAPhours - code is run by commenting/uncommenting each case
 
 % Step 1: `default' - run 1 
-UWAY_WAP_SUBDIR = "/"; % Leave with simple '/' if no special case
-inidate = "20220523"; % jday=143 first day of default config. 1st WAP hour = 16
-enddate = "20220622"; % jday=173 last full day of default config. 
-WAPhour = "016"; % tjor: `processes all days with 0XXth hour of data present" 
+#UWAY_WAP_SUBDIR = "/"; % Leave with simple '/' if no special case
+#inidate = "20220523"; % jday=143 first day of default config. 1st WAP hour = 16
+#enddate = "20220622"; % jday=173 last full day of default config. 
+#WAPhour = "016"; % tjor: `processes all days with 0XXth hour of data present" 
 
 % Step 1: `default' - run 2 - catches final day of data. 
-% UWAY_WAP_SUBDIR = "/"; % Leave with simple '/' if no special case
-% inidate = "20220623"; % jday=174 1st WAP hour = 16
-%$enddate = "20220623"; 
-%WAPhour = "02"; % tjor: `processes all days with 0XXth hour of data present"
+#UWAY_WAP_SUBDIR = "/"; % Leave with simple '/' if no special case
+#inidate = "20220623"; % jday=174 
+#enddate = "20220623"; 
+#WAPhour = "02"; % tjor: `processes all days with 0XXth hour of data present"
 
-% Step 1: `with_ACS167' run 1 `  - 
+#Step 1: `with_ACS167' - run 1 
+#UWAY_WAP_SUBDIR = "with_ACS167/"; 
+#inidate = "20220521";
+#enddate = "20220523"; 
+#WAPhour = "005"; 
+
+
+# Step 1: `with_ACS167' - run 2 
 # UWAY_WAP_SUBDIR = "with_ACS167/"; 
-# inidate = "20220521";
-# enddate = "20220523"; 
-# WAPhour = "005"; 
-
-% Step 1: `with_ACS167' run 2 `  - 
-# UWAY_WAP_SUBDIR = "with_ACS167/"; % Leave with simple / if no special case
 # inidate = "20220521";
 # enddate = "20220523"; 
 # WAPhour = "020"; 
 
-# Note: for future processing with BB3, jdays are 153, 158, 164.
+#Step 1: `dark_counts_BB3' - run 1
+#UWAY_WAP_SUBDIR = "dark_counts_BB3/"; 
+#inidate = "20220602";
+#enddate = "20220616"; 
+#WAPhour = "007"; 
 
+#Step 1: `dark_counts_BB3' - run 2
+#UWAY_WAP_SUBDIR = "dark_counts_BB3/"; 
+#inidate = "20220613";
+#enddate = "20220613"; 
+#WAPhour = "010"; 
 
-% Step 2:  
-#UWAY_WAP_SUBDIR = "/"; 
-#inidate = "20220521"; % jday = 141
-#enddate = "20220623"; % jday = 174
 
 
 % Parameters specific for Underway plotting/processing
@@ -61,9 +67,9 @@ WAPhour = "016"; % tjor: `processes all days with 0XXth hour of data present"
 %
 % Implemented instruments to selct from are 
 % {"ctd","acs","bb3","cstar","acs2","ac9","clam"}  % NOTE: AC9 not used in DY151 - ACS167 was only used in reference interval
-if strcmp (UWAY_WAP_SUBDIR, "with_ACS167") == 1 % # case with 2 acs instruments - from start of cruise
-     # dh8_instruments = {"bb3", "ctd", "acs", "acs_167"};  - full instrument list
-      dh8_instruments = {"bb3", "ctd", "acs"}; # - neglecting 167, as it was not used for rest of cruise
+if strcmp (UWAY_WAP_SUBDIR, "with_ACS167/") == 1 % # case with 2 acs instruments - start of cruise
+     # dh8_instruments = {"bb3", "ctd", "acs", "acs2"};  - full instrument list
+      dh8_instruments = {"bb3", "ctd", "acs", }; # - neglecting 167, as it was not used for rest of cruise
      % Ports must corresponds to same ports as in dh8_instruments
      # dh8_ports = {1,2,5,7}; - full port list
       dh8_ports = {1,2,5};  # - neglecting 167, as it was not used for rest of cruise
