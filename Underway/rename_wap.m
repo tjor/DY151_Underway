@@ -166,19 +166,19 @@ files = glob(strcat(wapdir, 'DY151_*.wlh22_*'))
 #endfor
 
 
-files = glob(strcat(wapdir, 'DY151_*_bb3_darks22_*'))
-for i=1:length(files)
-	oldname_i = strsplit(files{i}, '/'){11}
+#files = glob(strcat(wapdir, 'DY151_*_bb3_darks22_*'))
+#for i=1:length(files)
+#	oldname_i = strsplit(files{i}, '/'){11}
 	
-	a = strsplit(oldname_i, '_'); # chunks of filename
-	if length(a) == 8
-		newname_i = strcat(a{1}, '_', a{2}, '22', '_',  a{5}, '_', a{6}, '_', a{7}, '_', a{8})
-	elseif length(a) == 7
-		newname_i = strcat(a{1}, '_', a{2}, '22', '_', a{5}, '_', a{6}, '_', a{7})
-        elseif length(a) == 6
-		newname_i = strcat(a{1}, '_', a{2}, '22', '_', a{5}, '_', a{6})
-	endif
-	rename(strcat(wapdir, oldname_i),strcat(wapdir, newname_i))
-endfor
+#	a = strsplit(oldname_i, '_'); # chunks of filename
+#	if length(a) == 8
+#		newname_i = strcat(a{1}, '_', a{2}, '22', '_',  a{5}, '_', a{6}, '_', a{7}, '_', a{8})
+#	elseif length(a) == 7
+#		newname_i = strcat(a{1}, '_', a{2}, '22', '_', a{5}, '_', a{6}, '_', a{7})
+#       elseif length(a) == 6
+#		newname_i = strcat(a{1}, '_', a{2}, '22', '_', a{5}, '_', a{6})
+#	endif
+#	rename(strcat(wapdir, oldname_i),strcat(wapdir, newname_i))
+#endfor
 
 

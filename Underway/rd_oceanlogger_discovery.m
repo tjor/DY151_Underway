@@ -70,12 +70,11 @@ function tmp = rd_oceanlogger_discovery(fn_surf, fn_met, fn_light, fn_tsg)
         endif
     endfor
     
-
     % 4) TSG (different time => need interpolation) 
     for inc = 1:1
         ncfile = fn_tsg;  
         if inc == 1
-            tmp2.time = ncread(ncfile,'time')+datenum([1899,12,30,0,0,0]);
+            tmp2.time = ncread(ncfile,'time') + datenum([1899,12,30,0,0,0]);
             tmp2.sal = ncread(ncfile,'salin'); % TSG salinity
             tmp2.sst = ncread(ncfile,'temp_r'); % remote temp
             tmp2.thermosalinograph_temp = ncread(ncfile,'temp_h');

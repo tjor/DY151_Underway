@@ -1,4 +1,5 @@
-% This file contains all the variables that should be modified at beginning of every cruise
+% This file contains all the variables that should be modified at beginning of every cruise - this is for DY151
+% in May/June 2022. 
 
 %-----------------------------
  
@@ -12,13 +13,14 @@ graphics_toolkit("gnuplot");
 %-----------------------------
 CRUISE = "DY151";
 WAP_ROOT = CRUISE; % tjor: `root" part of WAP file - capitals for DY151
-%WAP_ROOT = strcat(lower(CRUISE),"b"); % tjor: `root" part of WAP file
+
+
 %-----------------------------
 % Variables to be changed during cruise according to specific setups and user needs
 %
 % Dates
-% jday=141 (20220521) is first day of cruise
-% jday=174 (20220623) is final day of cruise 
+% jday=141 (20220521) is first day of DY151 cruise
+% jday=174 (20220623) is final day of DY151 cruise 
 
 % Set subdirectories, ini/end dates and WAPhours - code is run by commenting/uncommenting each case
 
@@ -40,7 +42,6 @@ WAP_ROOT = CRUISE; % tjor: `root" part of WAP file - capitals for DY151
 #enddate = "20220523"; 
 #WAPhour = "005"; 
 
-
 # Step 1: `with_ACS167' - run 2 
 # UWAY_WAP_SUBDIR = "with_ACS167/"; 
 # inidate = "20220521";
@@ -59,7 +60,11 @@ WAP_ROOT = CRUISE; % tjor: `root" part of WAP file - capitals for DY151
 #enddate = "20220613"; 
 #WAPhour = "010"; 
 
-
+#Step 2: 
+UWAY_WAP_SUBDIR = "/"; % this is not used explictly
+inidate = "20220521";
+#inidate = "20220606";
+enddate = "20220623"; 
 
 % Parameters specific for Underway plotting/processing
 % (this will change depending on specific section fo the cruise)
@@ -127,8 +132,8 @@ ACS_CAL_FILE_NAME = "acs122.dev"; % tjor -  2019 was latest callibration. For no
 
 
 %-----------------------------
-% Ship"s system directories - these are specfic to a discovery cruise metadata (see AMT28 for JCR).
-PATH_SHIP = [PATH_DATA, "Ship_uway/"]; %tjor - ships meteorological data
+% Ship"s system directories - these are specfic to a Discovery cruise metadata format (see AMT28 for JCR).
+PATH_SHIP = [PATH_DATA, "Underway/ship_uway/"]; % note: some cruises store as: [PATH_DATA, "ship_uway/"]
 PATH_GPS = [PATH_SHIP,'GPS/'];  % 
 PATH_ATT = [PATH_SHIP,'ATT/'];  % 
 PATH_DEPTH = [PATH_SHIP,'EA600/'];  % 
@@ -139,25 +144,25 @@ PATH_TSG = [PATH_SHIP,'TSG/']; %
 # Input parameters for ship"s underway data
 
 # file paths for GGA function
-FUNC_GGA = []; # @rd_seatech_gga_discovery; # note: handle not used explictly for disco processing
+FUNC_GGA = []; # @rd_seatech_gga_discovery; # note: handle not used explictly for discovery processing - however, this was done to make similar format in input paramters to the JCR crusies.
 
 DIR_GPS = PATH_GPS; 
-FN_GPS =  '*position-Applanix_GPS*';
+FN_GPS =  '*position-POSMV_GPS*';
 
 DIR_ATT = PATH_ATT; 
-FN_ATT = '*shipattitude-Applanix_TSS*';
+FN_ATT = '*shipattitude-POSMV_ATT.att*';
 
 DIR_DEPTH = PATH_DEPTH;
-FN_DEPTH = '*EA640_DY1*';
+FN_DEPTH = '*EA640_DEPTH*';
 
 
 # file paths for Oceanlogger function
 FUNC_OL = []; # @rd_oceanlogger_discovery;  # note: handle not used explictly for disco processing
 
 DIR_TS = PATH_TS;  
-FN_SURF = '*Surf-DY-SM_DY1*';  
-FN_METDATA = '*MET-DY-SM_DY1*';  
-FN_LIGHT = '*Light-DY-SM_DY1*';
+FN_SURF = '*Surf-SURFMET*';  
+FN_METDATA = '*MET-SURFMET*';  
+FN_LIGHT = '*Light-SURFMET*';
 
 DIR_TSG = PATH_TSG;  
 FN_TSG = '*SBE45*';
