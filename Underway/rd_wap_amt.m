@@ -25,7 +25,7 @@
 function WAPvars = rd_wap_amt(flowdir, filename, fileext, dh8_instruments, dh8_ports)
 
    %global din
-
+  
    tic
    %disp(' ')
    %disp(['WAP extracted processing started ' datestr(now)])

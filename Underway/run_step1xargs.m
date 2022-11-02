@@ -21,13 +21,10 @@
    % Initialize index variable
    ijdays = []; 
    
-
    % Cycle through all dates
-   for i = 1:size(strdates,1)
+   for i= 1: size(strdates,1)
+      itmp = find_index_strdate_in_glob(WAPdays,strcat('_', num2str(jdays(i)), '_')) # index of jday: tjor mod to string-reading as `jday' was a non-unique ID (`_jday_' is)
 
-      % Find indices of file with strdates(i,:) in name
-      itmp = find_index_strdate_in_glob(WAPdays,sprintf('%d',jdays(i)));
-  
       % itmp must be a 1 element array (one file per daily cast)
       % Return error messages if it is not
       if length(itmp) == 0
@@ -35,7 +32,7 @@
   
       elseif length(itmp) > 1
          disp(['Something wrong with underway on day ' sprintf('%d',jdays(i)) ', ' str2num(length(itmp)) ' files found!!!'])
-      
+          keyboard
       else
          ijdays = [ijdays, i];
 

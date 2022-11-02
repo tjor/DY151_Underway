@@ -17,41 +17,42 @@ WAP_ROOT = CRUISE; % tjor: `root" part of WAP file - capitals for DY151
 % Variables to be changed during cruise according to specific setups and user needs
 %
 % Dates
-
 % jday=141 (20220521) is first day of cruise
 % jday=174 (20220623) is final day of cruise 
 
 % Set subdirectories, ini/end dates and WAPhours.
 
-% Step 1: `default' run 1 `  - 
+% Step 1: `default' - run 1 
 UWAY_WAP_SUBDIR = "/"; % Leave with simple '/' if no special case
-#UWAY_WAP_SUBDIR = "with_ACS16"
-#UWAY_WAP_SUBDIR = "dark_counts_BB3/"
+inidate = "20220523"; % jday=143 first day of default config. 1st WAP hour = 16
+enddate = "20220622"; % jday=173 last full day of default config. 
+WAPhour = "016"; % tjor: `processes all days with 0XXth hour of data present" 
 
-inidate = "20220522"; % jday=141 first day of default config. 1st WAP hour = 16
-enddate = "20220623"; % jday=174 last day of default config.  last WAP hour = 16
-WAPhour = "016"; % tjor: `processes all days with 0XXth hour of data present" - should work for all days
-
+% Step 1: `default' - run 2 - catches final day of data. 
+% UWAY_WAP_SUBDIR = "/"; % Leave with simple '/' if no special case
+% inidate = "20220623"; % jday=174 1st WAP hour = 16
+%$enddate = "20220623"; 
+%WAPhour = "02"; % tjor: `processes all days with 0XXth hour of data present"
 
 % Step 1: `with_ACS167' run 1 `  - 
-UWAY_WAP_SUBDIR = "with_ACS167/"; 
-inidate = "20220521";
-enddate = "20220523"; 
-WAPhour = "005"; 
+# UWAY_WAP_SUBDIR = "with_ACS167/"; 
+# inidate = "20220521";
+# enddate = "20220523"; 
+# WAPhour = "005"; 
 
 % Step 1: `with_ACS167' run 2 `  - 
-UWAY_WAP_SUBDIR = "with_ACS167/"; % Leave with simple / if no special case
-inidate = "20220521";
-enddate = "20220523"; 
-WAPhour = "020"; 
+# UWAY_WAP_SUBDIR = "with_ACS167/"; % Leave with simple / if no special case
+# inidate = "20220521";
+# enddate = "20220523"; 
+# WAPhour = "020"; 
 
 # Note: for future processing with BB3, jdays are 153, 158, 164.
 
 
 % Step 2:  
-UWAY_WAP_SUBDIR = "/"; 
-inidate = "20220521"; % jday=141
-enddate = "20220623"; % jday=174
+#UWAY_WAP_SUBDIR = "/"; 
+#inidate = "20220521"; % jday = 141
+#enddate = "20220623"; % jday = 174
 
 
 % Parameters specific for Underway plotting/processing
